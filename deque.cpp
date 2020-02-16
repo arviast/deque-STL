@@ -2,36 +2,35 @@
 #include <deque> 
 using namespace std;
 
-
-
 void printKMax(int arr[], int n, int k){
-    
-    deque<int> dq;
-    
-    for (int i=0; i<n; i++){
-        
-        // base case for first element
-        if (dq.empty()){
-            dq.push_back(i);
+    // create a myDeque
+    deque<int> myDeque;
+
+    for(int i =0; i<n;i++) {
+
+        // push first i
+        if(myDeque.empty()) {
+            myDeque.push_back(i);
         }
-        
-        // remove elements outside the current window
-        if (dq.front() <= (i - k)){
-            dq.pop_front();
+
+        // if it's bigger than k removes first element
+        if(myDeque.front() <= (i-k)) {
+            myDeque.pop_front();
         }
-        
-        // move max element to the front
-        while (!dq.empty() && arr[i] >= arr[dq.back()]){
-            dq.pop_back();
+
+        // find max pop the rest
+        while(!myDeque.empty() && arr[i] >= arr[myDeque.back()]) {
+            myDeque.pop_back();
         }
-        
-        dq.push_back(i);
-        
-        // print out only when the first window is completed
-        if (i >= (k - 1)){
-            printf("%d ", arr[dq.front()]);
-        }    
+
+        myDeque.push_back(i);
+
+        // print only max only when i+1 == k
+        if(i>=(k-1)) {
+            printf("%d", arr[myDeque.front()]);
+        }
     }
+
     printf("\n");
 }
 
